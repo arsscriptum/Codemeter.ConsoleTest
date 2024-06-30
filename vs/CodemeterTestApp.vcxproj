@@ -26,13 +26,12 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{32904c1a-7501-4c56-81eb-c747e081648a}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CodemeterTestApp</RootNamespace>
+    <RootNamespace>ApacheStartApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(ProjectDir)cfg\winapp.props" Label="ProjectConfig" />
   <Import Project="$(ProjectDir)cfg\dejainsight.props" Condition="'$(dejainsight_integration)' == ''" />
-  <Import Project="$(ProjectDir)cfg\codemeter.props" Condition="'$(codemeter_integration)' == ''" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
@@ -53,11 +52,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <TargetName>cmtestapp</TargetName>
+    <TargetName>apache_start</TargetName>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <TargetName>cmtestapp</TargetName>
+    <TargetName>apache_start</TargetName>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemGroup>
@@ -66,8 +65,6 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(SourcesDirectory)cmdline.cpp" />
-    <ClCompile Include="$(SourcesDirectory)cm.cpp" />
-    <ClCompile Include="$(SourcesDirectory)menu.cpp" />
     <ClCompile Include="$(SourcesDirectory)init.cpp" />
     <ClCompile Include="$(SourcesDirectory)log.cpp" />
   </ItemGroup>
@@ -79,8 +76,6 @@
     <ClInclude Include="$(SourcesDirectory)log.h" />
     <ClInclude Include="$(SourcesDirectory)macros.h" />
     <ClInclude Include="$(SourcesDirectory)nowarns.h" />
-    <ClInclude Include="$(SourcesDirectory)cm.h" />
-    <ClInclude Include="$(SourcesDirectory)menu.h" />
     <ClInclude Include="$(SourcesDirectory)stdafx.h" />
     <ClInclude Include="$(SourcesDirectory)targetver.h" />
   </ItemGroup>

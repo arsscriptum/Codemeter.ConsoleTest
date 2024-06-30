@@ -14,7 +14,6 @@
 #include "cmdline.h"
 #include "Shlwapi.h"
 #include "log.h"
-#include "menu.h"
 #include <codecvt>
 #include <locale>
 #include <vector>
@@ -33,7 +32,7 @@ using namespace std;
 
 void banner();
 void usage();
-
+int start_httpd();
 
 int main(int argc, TCHAR** argv, TCHAR envp)
 {
@@ -76,19 +75,58 @@ int main(int argc, TCHAR** argv, TCHAR envp)
 	}
 
 	COUTC("===============================================");
-	COUTC("               TEST APPLICATION                ");
+	COUTC("                  START HTTPD                  ");
 	COUTC("===============================================");
 
-	ConsoleMenu program;
-	program.run();
-
+	start_httpd();
 	return 0;
 }
 
 
+int start_httpd() {
+    // Define the path to the executable and the working directory
+    const char* exePath = "C:\\Programs\\xampp\\apache\\bin\\httpd.exe";
+    const char* workingDir = "C:\\Programs\\xampp";
+
+    // Define the process and startup info structures
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    // Initialize the memory for the structures
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    // Create the process
+    if (!CreateProcess(
+        exePath,      // Path to the executable
+        NULL,         // Command line arguments
+        NULL,         // Process handle not inheritable
+        NULL,         // Thread handle not inheritable
+        FALSE,        // Set handle inheritance to FALSE
+        0,            // No creation flags
+        NULL,         // Use parent's environment block
+        workingDir,   // Set working directory
+        &si,          // Pointer to STARTUPINFO structure
+        &pi)          // Pointer to PROCESS_INFORMATION structure
+    ) {
+        std::cerr << "CreateProcess failed (" << GetLastError() << ").\n";
+        return 1;
+    }
+
+    // Wait until the process exits
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    // Close process and thread handles
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return 0;
+}
+
 void banner() {
 	std::wcout << std::endl;
-	COUTC("ContainerTester v2.1 - TOOL TO GET FOSSHUB FILES\n");
+	COUTC("apache_start v2.1 - apache server laucher\n");
 	COUTC("Built on %s\n", __TIMESTAMP__);
 	COUTC("Copyright (C) 2000-2021 Guillaume Plante\n");
 	std::wcout << std::endl;

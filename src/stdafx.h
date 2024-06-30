@@ -18,7 +18,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include "targetver.h"
 
-#include "CodeMeter.h"
+//#include "CodeMeter.h"
 
 #include <windows.h>
 #include <process.h>
